@@ -1,0 +1,246 @@
+/* Global reset / basics */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Layout: sidebar + main content */
+.sidebar {
+    width: 260px;
+    background: #020617;
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #1f2937;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-header p {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+}
+
+.nav-section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.nav-links {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.nav-links li {
+    margin-bottom: 0.25rem;
+}
+
+.nav-links a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.nav-links a:hover {
+    background: #111827;
+    color: #f9fafb;
+    transform: translateX(2px);
+}
+
+.nav-links a.active {
+    background: #1d4ed8;
+    color: #f9fafb;
+}
+
+/* Sidebar footer (for quick links) */
+.sidebar-footer {
+    margin-top: auto;
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.sidebar-footer a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+.sidebar-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 2.5rem 2rem;
+    max-width: 900px;
+}
+
+/* Sections / typographic styles */
+.section-header {
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+}
+
+.section-header p {
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+.section-block {
+    margin-bottom: 2rem;
+}
+
+.section-block h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+.section-block p {
+    color: #d1d5db;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Project cards */
+.project-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.project-card {
+    background: #020617;
+    border-radius: 0.75rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid #1f2937;
+}
+
+.project-card h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.05rem;
+}
+
+.project-meta {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0.7rem;
+}
+
+.project-links a {
+    font-size: 0.85rem;
+    color: #60a5fa;
+    text-decoration: none;
+    margin-right: 0.75rem;
+}
+
+.project-links a:hover {
+    text-decoration: underline;
+}
+
+/* Contact page */
+.contact-list {
+    list-style: none;
+}
+
+.contact-list li {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.contact-list a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+.contact-list a:hover {
+    text-decoration: underline;
+}
+
+/* Small animation touch */
+.fade-in {
+    animation: fadeIn 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive: collapse sidebar on small screens */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        padding: 0.75rem 1rem;
+    }
+
+    .sidebar-header {
+        flex: 1;
+    }
+
+    .nav-section-title {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        margin-bottom: 0;
+    }
+
+    .nav-links li {
+        margin-bottom: 0;
+        margin-left: 0.5rem;
+    }
+
+    .nav-links a {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    .main-content {
+        padding: 1.5rem 1rem 2.5rem;
+    }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amit Karanth Gurpur | Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="name">Amit Karanth Gurpur</div>
+      <div class="tagline">ECE @ Northeastern · ML & Computer Vision</div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="#aboutme">About</a>
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#skills">Skills</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="meta">Boston, MA</div>
+      <div class="meta">
+        <a href="https://github.com/amitkaranth" target="_blank" rel="noreferrer">GitHub</a>
+        <span class="sep">·</span>
+        <a href="https://www.linkedin.com/in/amitkaranth" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="content">
+    <section id="aboutme" class="section">
+      <div class="section-head">
+        <h1>About</h1>
+        <p class="sub">
+          Graduate student focused on machine learning, computer vision, and practical systems.
+        </p>
+      </div>
+
+      <div class="card">
+        <p>
+          I am a Master’s student in Electrical and Computer Engineering at Northeastern University.
+          My work focuses on ML and CV, especially diffusion-based generation/editing and efficient model adaptation.
+          I enjoy building end-to-end pipelines: training code, evaluation, and clear project write-ups.
+        </p>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn primary" href="#projects">View Projects</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p class="sub">Selected work. Each project can later expand into its own detailed page.</p>
+      </div>
+
+      <div class="grid">
+        <article class="proj card">
+          <div class="proj-top">
+            <div class="proj-title">Generative Video Edit Propagation</div>
+            <div class="pill-row">
+              <span class="pill">Diffusion</span>
+              <span class="pill">Video</span>
+              <span class="pill">CV</span>
+            </div>
+          </div>
+          <p class="proj-desc">
+            Apply an edit to a single keyframe and propagate it consistently through a short video using a frozen
+            image-to-video backbone, selective conditioning, and a learned mask head.
+          </p>
+          <div class="proj-links">
+            <a href="#" class="link" target="_blank" rel="noreferrer">Code</a>
+            <a href="#" class="link" target="_blank" rel="noreferrer">Report</a>
+          </div>
+        </article>
+
+        <article class="proj card">
+          <div class="proj-top">
+            <div class="proj-title">Intel PIN Trace Collection Tool</div>
+            <div class="pill-row">
+              <span class="pill">Systems</span>
+              <span class="pill">Instrumentation</span>
+            </div>
+          </div>
+          <p class="proj-desc">
+            Built a PIN-based tracing utility to collect targeted execution traces for architectural analysis and controlled experiments.
+          </p>
+          <div class="proj-links">
+            <a href="#" class="link" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        </article>
+
+        <article class="proj card">
+          <div class="proj-top">
+            <div class="proj-title">Project Title 3</div>
+            <div class="pill-row">
+              <span class="pill">ML</span>
+              <span class="pill">CV</span>
+            </div>
+          </div>
+          <p class="proj-desc">
+            Replace this with a 1–2 line summary: problem, your approach, and outcome.
+          </p>
+          <div class="proj-links">
+            <a href="#" class="link" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p class="sub">Keep this tight and relevant to ML/CV roles.</p>
+      </div>
+
+      <div class="card">
+        <div class="skill-row">
+          <div class="skill-col">
+            <div class="skill-title">ML/CV</div>
+            <div class="skill-items">Diffusion · Transformers · Representation Learning · Evaluation</div>
+          </div>
+          <div class="skill-col">
+            <div class="skill-title">Tools</div>
+            <div class="skill-items">PyTorch · CUDA basics · Git · Linux · Docker (optional)</div>
+          </div>
+          <div class="skill-col">
+            <div class="skill-title">Systems</div>
+            <div class="skill-items">Profiling · Instrumentation · Performance analysis</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p class="sub">Fastest ways to reach me.</p>
+      </div>
+
+      <div class="card contact-card">
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <a class="contact-value" href="mailto:gurpuramit@gmail.com">gurpuramit@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">LinkedIn</div>
+          <a class="contact-value" href="https://www.linkedin.com/in/amitkaranth" target="_blank" rel="noreferrer">
+            linkedin.com/in/amitkaranth
+          </a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">GitHub</div>
+          <a class="contact-value" href="https://github.com/amitkaranth" target="_blank" rel="noreferrer">
+            github.com/amitkaranth
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> Amit Karanth Gurpur</div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
