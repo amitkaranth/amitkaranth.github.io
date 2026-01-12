@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d6891a1d.css",
+    "main.js": "/static/js/main.e3b5b7c8.js",
+    "static/js/453.7b614438.chunk.js": "/static/js/453.7b614438.chunk.js",
+    "static/media/amit-img.jpg": "/static/media/amit-img.63f7db0c32293db7429c.jpg",
+    "index.html": "/index.html",
+    "main.d6891a1d.css.map": "/static/css/main.d6891a1d.css.map",
+    "main.e3b5b7c8.js.map": "/static/js/main.e3b5b7c8.js.map",
+    "453.7b614438.chunk.js.map": "/static/js/453.7b614438.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d6891a1d.css",
+    "static/js/main.e3b5b7c8.js"
+  ]
+}
