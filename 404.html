@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <style>
+    .not-found {
+      min-height:      100vh;
+      display:         flex;
+      flex-direction:  column;
+      align-items:     center;
+      justify-content: center;
+      text-align:      center;
+      padding:         var(--space-8);
+    }
+
+    .not-found__code {
+      font-size:      8rem;
+      font-weight:    800;
+      line-height:    1;
+      letter-spacing: -0.05em;
+      color:          var(--color-accent);
+      opacity:        0.2;
+      margin-bottom:  var(--space-4);
+    }
+
+    .not-found__title {
+      font-size:     var(--text-3xl);
+      font-weight:   700;
+      margin-bottom: var(--space-4);
+    }
+
+    .not-found__body {
+      color:         var(--color-text-secondary);
+      max-width:     400px;
+      margin-bottom: var(--space-8);
+    }
+  </style>
+</head>
+<body>
+  <div id="loader" aria-hidden="true"><canvas id="loader-canvas"></canvas></div>
+  <script src="assets/js/loader.js"></script>
+  <div class="not-found">
+    <div class="not-found__code">404</div>
+    <h1 class="not-found__title">Page not found</h1>
+    <p class="not-found__body">
+      The page you're looking for doesn't exist or has been moved.
+    </p>
+    <a href="index.html" class="btn btn--primary">Go home</a>
+  </div>
+
+  <script src="assets/data/content.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

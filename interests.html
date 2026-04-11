@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interests — Amit Karanth Gurpur</title>
+  <meta name="description" content="What I'm passionate about building and where I see myself going.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/interests.css">
+</head>
+<body>
+
+  <div id="loader" aria-hidden="true"><canvas id="loader-canvas"></canvas></div>
+  <script src="assets/js/loader.js"></script>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" id="nav-logo">YN</a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html"     class="nav__link">Home</a></li>
+        <li><a href="projects.html"  class="nav__link">Projects</a></li>
+        <li><a href="interests.html" class="nav__link">Interests</a></li>
+        <li><a href="resume.html"    class="nav__link">Resume</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon"></span>
+        </button>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html"     class="nav__link">Home</a>
+    <a href="projects.html"  class="nav__link">Projects</a>
+    <a href="interests.html" class="nav__link">Interests</a>
+    <a href="resume.html"    class="nav__link">Resume</a>
+  </div>
+
+  <main>
+
+    <!-- ── Page hero ─────────────────────────────────────── -->
+    <header class="page-hero">
+      <div class="container">
+        <p class="page-hero__eyebrow">What drives me</p>
+        <h1 class="page-hero__title">Interests</h1>
+        <p class="page-hero__subtitle">
+          The things I'm passionate about building, learning, and becoming.
+        </p>
+      </div>
+    </header>
+
+    <!-- ── Vision statement ───────────────────────────────── -->
+    <section class="section section--alt" aria-label="Vision">
+      <div class="container">
+        <div class="vision-block reveal" id="vision-statement">
+          <!-- Rendered by interests.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Technical interests ────────────────────────────── -->
+    <section class="section" aria-label="Technical interests">
+      <div class="container">
+        <p class="section-label">What I build</p>
+        <h2 class="section-heading">Technical Interests</h2>
+        <p class="section-subheading" style="margin-bottom:var(--space-12)">
+          The areas of software and technology I love exploring most.
+        </p>
+
+        <div class="interests-grid" id="technical-interests-grid" data-reveal-group>
+          <!-- Rendered by interests.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Personal + synthesis ───────────────────────────── -->
+    <section class="section section--alt" aria-label="Personal interests and synthesis">
+      <div class="container">
+        <div class="split-section">
+
+          <!-- Personal interests -->
+          <div>
+            <h2 class="split-section__heading">
+              <span>🎨</span> Beyond the Screen
+            </h2>
+            <div class="split-section__list" id="personal-interests-list" data-reveal-group>
+              <!-- Rendered by interests.js -->
+            </div>
+          </div>
+
+          <!-- How they connect -->
+          <div>
+            <h2 class="split-section__heading">
+              <span>🔗</span> How It All Connects
+            </h2>
+            <div id="synthesis-text"
+                 style="color:var(--color-text-secondary);line-height:1.8;font-size:var(--text-base)">
+              <!-- Rendered by interests.js -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2.5"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script src="assets/data/content.js"></script>
+  <script src="assets/data/projects.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/interests.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const logo = document.getElementById("nav-logo");
+      if (logo && typeof CONTENT !== "undefined") {
+        logo.textContent = CONTENT.name.split(" ").slice(0, 2).map(w => w[0]).join("") + ".";
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+  PROJECT DETAIL TEMPLATE
+  ═══════════════════════
+  To create a new project page:
+  1. Copy this file and rename it to match the project's `id` in projects.js
+     e.g. if id is "my-cool-app", save as "my-cool-app.html"
+  2. That's it — the JS reads the filename and fills in all content automatically.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project — Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/projects.css">
+</head>
+<body>
+
+  <div id="loader" aria-hidden="true"><canvas id="loader-canvas"></canvas></div>
+  <script src="../assets/js/loader.js"></script>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo" id="nav-logo">YN</a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="../index.html"     class="nav__link">Home</a></li>
+        <li><a href="../projects.html"  class="nav__link">Projects</a></li>
+        <li><a href="../interests.html" class="nav__link">Interests</a></li>
+        <li><a href="../resume.html"    class="nav__link">Resume</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon"></span>
+        </button>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation">
+    <a href="../index.html"     class="nav__link">Home</a>
+    <a href="../projects.html"  class="nav__link">Projects</a>
+    <a href="../interests.html" class="nav__link">Interests</a>
+    <a href="../resume.html"    class="nav__link">Resume</a>
+  </div>
+
+  <main id="project-content">
+
+    <!-- ── Project hero ──────────────────────────────────── -->
+    <header class="project-detail-hero">
+      <div class="container">
+        <a href="../projects.html" class="project-detail-hero__back" id="back-link">
+          <!-- Arrow injected by JS -->
+          Back to Projects
+        </a>
+
+        <!-- Tech stack badges -->
+        <div class="project-detail-hero__tags" id="project-tags"></div>
+
+        <!-- Title -->
+        <h1 class="project-detail-hero__title" id="project-title">Loading…</h1>
+
+        <!-- One-liner -->
+        <p class="project-detail-hero__tagline" id="project-tagline"></p>
+
+        <!-- Action buttons (Back / GitHub / Live) -->
+        <div class="project-detail-hero__links" id="project-links"></div>
+      </div>
+    </header>
+
+    <div class="container">
+
+      <!-- Cover image -->
+      <img class="project-detail__cover reveal" id="project-cover" src="" alt="" loading="lazy">
+
+      <!-- ── Two-column layout ───────────────────────────── -->
+      <div class="project-detail__layout">
+
+        <!-- Main body -->
+        <article class="project-detail__body" id="project-content-body">
+
+          <!-- Tech / Non-tech toggle -->
+          <!-- Tech / Non-tech segmented control -->
+          <div class="tech-toggle">
+            <div class="seg-control" id="seg-control">
+              <button class="seg-control__btn seg-control__btn--active" id="btn-technical" type="button">Technical</button>
+              <button class="seg-control__btn" id="btn-simple" type="button">Simple</button>
+            </div>
+          </div>
+
+          <!-- Technical description (default visible) -->
+          <div class="description-tech" id="description-tech">
+            <!-- Filled by project-detail.js -->
+          </div>
+
+          <!-- Non-technical description (shown when toggle is on) -->
+          <div class="description-nontech" id="description-nontech">
+            <!-- Filled by project-detail.js -->
+          </div>
+
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="project-detail__sidebar">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__title">Tech Stack</p>
+            <div class="sidebar-card__tags" id="tech-stack-tags">
+              <!-- Filled by project-detail.js -->
+            </div>
+          </div>
+
+          <!-- Add more sidebar cards here if needed, e.g. timeline, team, links -->
+
+        </aside>
+
+      </div>
+    </div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2.5"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- Note: paths go up one level since this file is in /projects/ -->
+  <script src="../assets/data/content.js"></script>
+  <script src="../assets/data/projects.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/project-detail.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const logo = document.getElementById("nav-logo");
+      if (logo && typeof CONTENT !== "undefined") {
+        logo.textContent = CONTENT.name.split(" ").slice(0, 2).map(w => w[0]).join("") + ".";
+      }
+      // Inject back arrow
+      const back = document.getElementById("back-link");
+      if (back) back.insertAdjacentHTML("afterbegin", ICONS.arrowLeft + " ");
+    });
+  </script>
+
+</body>
+</html>

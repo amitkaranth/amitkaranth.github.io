@@ -1,1 +1,166 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="shortcut icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" rel="stylesheet"/><meta name="theme-color" content="#000000"/><meta name="description" content="My name is Amit Karanth Gurpur. I am currently pursuing my Master’s degree in Electrical & Computer Engineering at Northeastern University, and I am scheduled to graduate in April 2026. I am passionate about Machine Learning and Computer Vision, and I have hands-on experience working with images and videos for ML and CV-based tasks. "/><link rel="apple-touch-icon" href="logo192.png"/><link rel="manifest" href="/manifest.json"/><meta property="twitter:image" content="/social-image.png"/><meta property="og:image" content="/social-image.png"/><title>Amit Karanth Gurpur</title><script defer="defer" src="/static/js/main.e3b5b7c8.js"></script><link href="/static/css/main.d6891a1d.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amit Karanth Gurpur — Portfolio</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Portfolio of Amit Karanth Gurpur — ECE Graduate Student & Software Engineer.">
+  <meta property="og:title"       content="Amit Karanth Gurpur — Portfolio">
+  <meta property="og:description" content="ECE Graduate Student at Northeastern University. Former Image Processing Intern at Logitech.">
+  <meta property="og:image"       content="assets/images/profile/photo.jpg">
+  <meta property="og:type"        content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body>
+
+  <!-- ── Signal Pulse Loader ────────────────────────────── -->
+  <div id="loader" aria-hidden="true">
+    <canvas id="loader-canvas"></canvas>
+  </div>
+  <script src="assets/js/loader.js"></script>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" id="nav-logo">YN</a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html"     class="nav__link">Home</a></li>
+        <li><a href="projects.html"  class="nav__link">Projects</a></li>
+        <li><a href="interests.html" class="nav__link">Interests</a></li>
+        <li><a href="resume.html"    class="nav__link">Resume</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon"></span>
+        </button>
+
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Mobile menu ─────────────────────────────────────── -->
+  <div class="nav__mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html"     class="nav__link">Home</a>
+    <a href="projects.html"  class="nav__link">Projects</a>
+    <a href="interests.html" class="nav__link">Interests</a>
+    <a href="resume.html"    class="nav__link">Resume</a>
+  </div>
+
+  <main>
+
+    <!-- ── Hero section ──────────────────────────────────── -->
+    <section class="hero section">
+      <div class="container">
+        <div class="hero__inner">
+
+          <!-- Text content -->
+          <div class="hero__content">
+            <p class="hero__eyebrow" id="hero-eyebrow"></p>
+            <h1 class="hero__name" id="hero-name">Your Name</h1>
+            <p class="hero__tagline" id="hero-tagline" data-tooltip="My personal motto">Your one-liner passion statement.</p>
+
+            <!-- Social buttons (rendered by home.js) -->
+            <div class="hero__social" id="hero-social"></div>
+
+            <!-- CTA -->
+            <div class="hero__cta">
+              <a href="projects.html" class="btn btn--primary">View Projects</a>
+            </div>
+          </div>
+
+          <!-- Photo + QR -->
+          <div class="hero__visual">
+            <div class="hero__photo-wrapper">
+              <img class="hero__photo" id="hero-photo" src="" alt="Your Name">
+            </div>
+            <div id="hero-qr"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <span>Scroll</span>
+        <span id="scroll-chevron"></span>
+      </div>
+    </section>
+
+    <!-- ── Skills section ────────────────────────────────── -->
+    <section class="section section--alt" id="skills" aria-label="Skills">
+      <div class="container">
+        <p class="section-label">What I work with</p>
+        <h2 class="section-heading">Skills &amp; Technologies</h2>
+
+        <div class="skills-grid" id="skills-grid" data-reveal-group>
+          <!-- Rendered by home.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Featured projects ──────────────────────────────── -->
+    <section class="section" id="projects" aria-label="Featured projects">
+      <div class="container">
+        <div class="featured-projects__header">
+          <div>
+            <p class="section-label">Selected work</p>
+            <h2 class="section-heading">Featured Projects</h2>
+          </div>
+          <a href="projects.html" class="btn btn--ghost">
+            See all projects
+          </a>
+        </div>
+
+        <div class="projects-grid" id="featured-projects-grid" data-reveal-group>
+          <!-- Rendered by home.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <div id="footer-placeholder"></div>
+
+  <!-- ── Back to top ─────────────────────────────────────── -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2.5"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- ── Scripts ─────────────────────────────────────────── -->
+  <script src="assets/data/content.js"></script>
+  <script src="assets/data/projects.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
+  <script>
+    // Set scroll indicator icon after ICONS is available
+    document.addEventListener("DOMContentLoaded", () => {
+      const el = document.getElementById("scroll-chevron");
+      if (el) el.innerHTML = ICONS.chevronDown;
+      // Nav logo is set by main.js (first two initials = "AK")
+    });
+  </script>
+
+</body>
+</html>

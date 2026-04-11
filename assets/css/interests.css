@@ -1,0 +1,118 @@
+/* ============================================================
+   INTERESTS.CSS — Interests page styles
+   ============================================================ */
+
+/* ── Timeline / Cards layout ─────────────────────────────── */
+.interests-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap:                   var(--space-6);
+}
+
+.interest-card {
+  padding:          var(--space-6);
+  border-radius:    var(--radius-lg);
+  border:           1px solid var(--color-border);
+  background-color: var(--color-bg-card);
+  transition:       border-color var(--transition), box-shadow var(--transition),
+                    transform var(--transition);
+}
+
+.interest-card:hover {
+  border-color: var(--color-accent);
+  box-shadow:   var(--shadow-md);
+  transform:    translateY(-3px);
+}
+
+.interest-card__icon {
+  font-size:     2rem;
+  margin-bottom: var(--space-3);
+  line-height:   1;
+}
+
+.interest-card__title {
+  font-size:     var(--text-lg);
+  font-weight:   700;
+  margin-bottom: var(--space-2);
+  color:         var(--color-text-primary);
+}
+
+.interest-card__body {
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ── Vision block ────────────────────────────────────────── */
+.vision-block {
+  padding:       var(--space-12) var(--space-16);
+  border-radius: var(--radius-lg);
+  background:    linear-gradient(135deg, var(--color-accent-subtle) 0%, transparent 100%);
+  border:        1px solid var(--color-accent);
+  position:      relative;
+  overflow:      hidden;
+}
+
+.vision-block::before {
+  content:          '"';
+  position:         absolute;
+  top:              -20px;
+  left:             var(--space-8);
+  font-size:        10rem;
+  font-weight:      800;
+  color:            var(--color-accent);
+  opacity:          0.08;
+  line-height:      1;
+  pointer-events:   none;
+}
+
+.vision-block__text {
+  font-size:   var(--text-xl);
+  color:       var(--color-text-primary);
+  line-height: 1.7;
+  font-weight: 400;
+  font-style:  italic;
+  max-width:   720px;
+  margin:      0 auto;
+  text-align:  justify;
+}
+
+/* ── Two column: tech / personal ─────────────────────────── */
+.split-section {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   var(--space-12);
+  align-items:           start;
+}
+
+.split-section__heading {
+  font-size:     var(--text-2xl);
+  font-weight:   700;
+  margin-bottom: var(--space-6);
+  display:       flex;
+  align-items:   center;
+  gap:           var(--space-3);
+}
+
+.split-section__list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-3);
+}
+
+.split-section__item {
+  display:    flex;
+  align-items: flex-start;
+  gap:         var(--space-3);
+  padding:     var(--space-2) 0;
+  font-size:   var(--text-base);
+  color:       var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+
+@media (max-width: 768px) {
+  .split-section  { grid-template-columns: 1fr; gap: var(--space-8); }
+  .vision-block   { padding: var(--space-8); }
+  .interests-grid { grid-template-columns: 1fr; }
+}

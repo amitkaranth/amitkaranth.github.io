@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Amit Karanth Gurpur</title>
+  <meta name="description" content="A showcase of projects built by Amit Karanth Gurpur.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <div id="loader" aria-hidden="true"><canvas id="loader-canvas"></canvas></div>
+  <script src="assets/js/loader.js"></script>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" id="nav-logo">YN</a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html"     class="nav__link">Home</a></li>
+        <li><a href="projects.html"  class="nav__link">Projects</a></li>
+        <li><a href="interests.html" class="nav__link">Interests</a></li>
+        <li><a href="resume.html"    class="nav__link">Resume</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon"></span>
+        </button>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html"     class="nav__link">Home</a>
+    <a href="projects.html"  class="nav__link">Projects</a>
+    <a href="interests.html" class="nav__link">Interests</a>
+    <a href="resume.html"    class="nav__link">Resume</a>
+  </div>
+
+  <main>
+
+    <!-- ── Page hero ─────────────────────────────────────── -->
+    <header class="page-hero">
+      <div class="container">
+        <p class="page-hero__eyebrow">My work</p>
+        <h1 class="page-hero__title">Projects</h1>
+        <p class="page-hero__subtitle">
+          A collection of things I've built — from ideas to shipped products.
+        </p>
+      </div>
+    </header>
+
+    <!-- ── Projects listing ───────────────────────────────── -->
+    <section class="section" aria-label="All projects">
+      <div class="container">
+
+        <!-- Filter chips (populated by projects.js) -->
+        <div class="filter-bar" id="filter-bar" role="group" aria-label="Filter by technology"></div>
+
+        <!-- Projects grid (populated by projects.js) -->
+        <div class="projects-grid" id="projects-grid" data-reveal-group></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2.5"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script src="assets/data/content.js"></script>
+  <script src="assets/data/projects.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/projects.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const logo = document.getElementById("nav-logo");
+      if (logo && typeof CONTENT !== "undefined") {
+        logo.textContent = CONTENT.name.split(" ").slice(0, 2).map(w => w[0]).join("") + ".";
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Theme Previews — Choose Your Style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #070709; }
+
+    /* ── Floating side nav ── */
+    .side-nav {
+      position: fixed; right: 28px; top: 50%; transform: translateY(-50%);
+      z-index: 200; display: flex; flex-direction: column; gap: 14px; align-items: center;
+    }
+    .side-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); cursor: pointer;
+      transition: all 0.3s; border: 1.5px solid rgba(255,255,255,0.15);
+    }
+    .side-dot:hover { background: rgba(255,255,255,0.6); transform: scale(1.4); }
+    .side-dot.active { background: rgba(255,255,255,0.9); transform: scale(1.3); border-color: transparent; }
+    .side-dot[data-theme="light"].active { background: rgba(0,0,0,0.7); border-color: transparent; }
+
+    /* ── Intro section ── */
+    .intro {
+      height: 100vh; scroll-snap-align: start;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; background: #070709; position: relative; overflow: hidden;
+    }
+    .intro::before {
+      content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(120, 100, 255, 0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .intro__label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.25rem;
+    }
+    .intro__title {
+      font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800; line-height: 1.05; color: #fff; margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .intro__title span {
+      background: linear-gradient(90deg, #ff7b54, #c77dff, #39ff90);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .intro__sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.45); max-width: 460px;
+      line-height: 1.65; margin-bottom: 3rem;
+    }
+    .intro__themes-row {
+      display: flex; gap: 2rem; align-items: center; justify-content: center; margin-bottom: 3.5rem;
+    }
+    .intro__chip {
+      display: flex; align-items: center; gap: 10px; padding: 10px 18px;
+      border-radius: 999px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      transition: all 0.25s; border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+    }
+    .intro__chip:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.9); }
+    .intro__chip .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.25); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .arrow-anim { width: 18px; height: 18px; border-right: 2px solid; border-bottom: 2px solid; transform: rotate(45deg); animation: drop 1.6s infinite; opacity: 0.3; }
+    @keyframes drop { 0%,100%{transform:rotate(45deg) translateY(0);opacity:.3} 50%{transform:rotate(45deg) translateY(7px);opacity:.6} }
+
+    /* ── Theme section base ── */
+    .theme-section {
+      height: 100vh; scroll-snap-align: start;
+      display: grid; grid-template-columns: 1.15fr 1fr; overflow: hidden;
+    }
+
+    /* ── Browser mockup ── */
+    .browser-wrap {
+      display: flex; align-items: center; justify-content: center;
+      padding: 2.5rem 2rem 2.5rem 3rem;
+    }
+    .browser {
+      width: 100%; max-width: 620px; border-radius: 14px;
+      overflow: hidden; position: relative;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .browser-chrome {
+      height: 38px; display: flex; align-items: center;
+      padding: 0 14px; gap: 7px; position: relative;
+    }
+    .b-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .b-r { background: #ff5f57; } .b-y { background: #febc2e; } .b-g { background: #28c840; }
+    .browser-url {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.08); border-radius: 6px;
+      padding: 3px 16px; font-size: 10px; color: rgba(255,255,255,0.4); white-space: nowrap;
+    }
+    .browser-screen { overflow: hidden; }
+
+    /* ── Mini site shared ── */
+    .mini-nav {
+      height: 38px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 18px;
+      border-bottom: 1px solid; font-size: 10.5px;
+    }
+    .mini-logo { font-weight: 700; font-size: 13px; letter-spacing: -0.02em; }
+    .mini-links { display: flex; gap: 18px; opacity: 0.55; font-size: 10px; }
+    .mini-hero-wrap { padding: 22px 18px 14px; }
+    .mini-eyebrow {
+      font-size: 8.5px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .mini-name { font-size: 24px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 5px; }
+    .mini-tagline { font-size: 10px; line-height: 1.55; opacity: 0.55; margin-bottom: 13px; max-width: 300px; }
+    .mini-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+    .mini-chip { padding: 3px 9px; border-radius: 999px; font-size: 8.5px; font-weight: 600; }
+    .mini-btns { display: flex; gap: 8px; margin-bottom: 4px; }
+    .mini-btn { padding: 7px 16px; border-radius: 7px; font-size: 9.5px; font-weight: 600; }
+    .mini-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 18px 18px; }
+    .mini-card { border-radius: 10px; overflow: hidden; border: 1px solid; }
+    .mini-card-thumb { height: 52px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .mini-card-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25)); }
+    .mini-card-body { padding: 8px 9px 9px; }
+    .mini-card-title { font-size: 9.5px; font-weight: 600; margin-bottom: 3px; }
+    .mini-card-sub { font-size: 8px; opacity: 0.5; line-height: 1.45; }
+    .mini-card-chips { display: flex; gap: 4px; margin-top: 6px; }
+    .mini-card-chip { padding: 2px 6px; border-radius: 99px; font-size: 7.5px; font-weight: 600; }
+
+    /* ── Info panel ── */
+    .info-panel {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 2.5rem 3rem 2.5rem 1.5rem;
+    }
+    .info-num {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 0.9rem;
+    }
+    .info-name { font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 0.6rem; }
+    .info-vibe { font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; }
+    .swatches-row { display: flex; gap: 10px; align-items: center; margin-bottom: 1.75rem; }
+    .swatch-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .swatch-circle { width: 34px; height: 34px; border-radius: 50%; }
+    .swatch-label { font-size: 7.5px; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.07em; text-align: center; }
+    .font-box { padding: 14px 16px; border-radius: 10px; margin-bottom: 2rem; }
+    .font-meta { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.4; margin-bottom: 6px; }
+    .font-heading { font-size: 1.15rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+    .font-body-sample { font-size: 0.8rem; opacity: 0.5; line-height: 1.5; }
+    .apply-btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px;
+      border-radius: 10px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      border: none; transition: all 0.2s; width: fit-content; letter-spacing: 0.01em;
+    }
+    .apply-btn:hover { transform: translateY(-2px); }
+    .apply-btn svg { width: 16px; height: 16px; transition: transform 0.2s; }
+    .apply-btn:hover svg { transform: translateX(3px); }
+
+    /* ===================================================
+       THEME 1: Obsidian & Ember
+    =================================================== */
+    .t1-section {
+      background: radial-gradient(ellipse at 20% 50%, #1f1030 0%, #0b0b0f 60%);
+    }
+    .t1-chrome { background: #1a1826; }
+    .t1-screen { background: #0b0b0f; }
+    .t1-nav { background: rgba(11,11,15,0.97); border-color: #25223a; color: #f0eef8; }
+    .t1-eyebrow { color: #ff7b54; }
+    .t1-name { color: #f0eef8; font-family: 'Syne', sans-serif; }
+    .t1-tagline { color: #9993b4; }
+    .t1-chip { background: rgba(255,123,84,0.13); color: #ff7b54; }
+    .t1-btn-primary { background: #ff7b54; color: #0b0b0f; }
+    .t1-btn-outline { border: 1px solid #2e2a42; color: #c8c5e0; background: transparent; }
+    .t1-card { border-color: #25223a; background: #14121e; }
+    .t1-thumb { background: linear-gradient(135deg, #1f1b30 0%, rgba(255,123,84,0.18) 100%); }
+    .t1-card-title { color: #e8e4f8; }
+    .t1-card-sub { color: #7a7594; }
+    .t1-card-chip { background: rgba(255,123,84,0.12); color: #ff7b54; }
+    .t1-info { color: #f0eef8; }
+    .t1-info .info-num { color: #ff7b54; }
+    .t1-info .info-vibe { color: #9993b4; }
+    .t1-font-box { background: rgba(255,255,255,0.04); }
+    .t1-font-heading { color: #ff7b54; font-family: 'Syne', sans-serif; }
+    .t1-font-body { color: #9993b4; }
+    .t1-apply { background: #ff7b54; color: #0b0b0f; box-shadow: 0 8px 28px rgba(255,123,84,0.35); }
+    .t1-apply:hover { box-shadow: 0 14px 36px rgba(255,123,84,0.45); }
+
+    /* ===================================================
+       THEME 2: Cloud & Cobalt
+    =================================================== */
+    .t2-section { background: linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 50%, #f5f5ff 100%); }
+    .t2-chrome { background: #dde5f0; }
+    .t2-url-bar { color: rgba(0,0,0,0.35) !important; background: rgba(0,0,0,0.06) !important; }
+    .t2-screen { background: #f9fafb; }
+    .t2-nav { background: rgba(249,250,251,0.97); border-color: #e5e7eb; color: #111827; }
+    .t2-eyebrow { color: #2563eb; }
+    .t2-name { color: #111827; font-family: 'Space Grotesk', sans-serif; }
+    .t2-tagline { color: #6b7280; }
+    .t2-chip { background: rgba(37,99,235,0.09); color: #2563eb; }
+    .t2-btn-primary { background: #2563eb; color: #fff; }
+    .t2-btn-outline { border: 1px solid #d1d5db; color: #374151; background: transparent; }
+    .t2-card { border-color: #e5e7eb; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .t2-thumb { background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%); }
+    .t2-card-title { color: #111827; }
+    .t2-card-sub { color: #9ca3af; }
+    .t2-card-chip { background: rgba(37,99,235,0.08); color: #2563eb; }
+    .t2-info { color: #111827; }
+    .t2-info .info-num { color: #9ca3af; }
+    .t2-info .info-vibe { color: #6b7280; }
+    .t2-font-box { background: rgba(0,0,0,0.04); }
+    .t2-font-heading { color: #2563eb; font-family: 'Space Grotesk', sans-serif; }
+    .t2-font-body { color: #6b7280; font-family: 'Space Grotesk', sans-serif; }
+    .t2-apply { background: #2563eb; color: #fff; box-shadow: 0 8px 28px rgba(37,99,235,0.3); }
+    .t2-apply:hover { box-shadow: 0 14px 36px rgba(37,99,235,0.42); }
+
+    /* ===================================================
+       THEME 3: Midnight & Jade
+    =================================================== */
+    .t3-section {
+      background: radial-gradient(ellipse at 80% 50%, #071a0f 0%, #040d09 60%);
+    }
+    .t3-chrome { background: #0c1a12; }
+    .t3-screen { background: #040d09; }
+    .t3-nav { background: rgba(4,13,9,0.97); border-color: #163321; color: #e8fff2; }
+    .t3-eyebrow { color: #39ff90; }
+    .t3-name { color: #e8fff2; font-family: 'Outfit', sans-serif; font-weight: 700; }
+    .t3-tagline { color: #5a9970; }
+    .t3-chip { background: rgba(57,255,144,0.1); color: #39ff90; }
+    .t3-btn-primary { background: #39ff90; color: #040d09; box-shadow: 0 0 14px rgba(57,255,144,0.35); }
+    .t3-btn-outline { border: 1px solid #163321; color: #a8e8c0; background: transparent; }
+    .t3-card { border-color: #163321; background: #0a1a10; }
+    .t3-thumb { background: linear-gradient(135deg, #0f2018 0%, rgba(57,255,144,0.15) 100%); }
+    .t3-card-title { color: #e8fff2; }
+    .t3-card-sub { color: #3d6b52; }
+    .t3-card-chip { background: rgba(57,255,144,0.1); color: #39ff90; }
+    .t3-info { color: #e8fff2; }
+    .t3-info .info-num { color: #39ff90; }
+    .t3-info .info-vibe { color: #5a9970; }
+    .t3-font-box { background: rgba(255,255,255,0.04); }
+    .t3-font-heading { color: #39ff90; font-family: 'Outfit', sans-serif; text-shadow: 0 0 18px rgba(57,255,144,0.4); }
+    .t3-font-body { color: #5a9970; font-family: 'Outfit', sans-serif; }
+    .t3-apply { background: #39ff90; color: #040d09; box-shadow: 0 8px 28px rgba(57,255,144,0.3); }
+    .t3-apply:hover { box-shadow: 0 14px 36px rgba(57,255,144,0.45); }
+
+    /* ── Copied toast ── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #fff; color: #111; padding: 12px 24px; border-radius: 99px;
+      font-size: 0.875rem; font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s;
+      opacity: 0; z-index: 1000; white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <div id="loader" aria-hidden="true"><canvas id="loader-canvas"></canvas></div>
+  <script src="assets/js/loader.js"></script>
+
+<!-- Floating side nav -->
+<nav class="side-nav" id="sideNav">
+  <div class="side-dot active" data-idx="0" title="Intro" onclick="scrollTo(0)"></div>
+  <div class="side-dot" data-idx="1" data-theme="dark" title="Obsidian & Ember" onclick="scrollTo(1)"></div>
+  <div class="side-dot" data-idx="2" data-theme="light" title="Cloud & Cobalt" onclick="scrollTo(2)"></div>
+  <div class="side-dot" data-idx="3" data-theme="dark" title="Midnight & Jade" onclick="scrollTo(3)"></div>
+</nav>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ── INTRO ──────────────────────────────────────────────────── -->
+<section class="intro" id="sec-0">
+  <div class="intro__label">Portfolio Redesign · 2025</div>
+  <h1 class="intro__title">Choose Your<br><span>Design Direction</span></h1>
+  <p class="intro__sub">Three distinct aesthetics, each handcrafted with a professional frontend developer's sensibility. Scroll to preview each theme in full.</p>
+  <div class="intro__themes-row">
+    <div class="intro__chip" onclick="scrollTo(1)">
+      <span class="dot" style="background:#ff7b54;box-shadow:0 0 8px rgba(255,123,84,0.5)"></span>
+      Obsidian &amp; Ember
+    </div>
+    <div class="intro__chip" onclick="scrollTo(2)">
+      <span class="dot" style="background:#2563eb;box-shadow:0 0 8px rgba(37,99,235,0.5)"></span>
+      Cloud &amp; Cobalt
+    </div>
+    <div class="intro__chip" onclick="scrollTo(3)">
+      <span class="dot" style="background:#39ff90;box-shadow:0 0 8px rgba(57,255,144,0.5)"></span>
+      Midnight &amp; Jade
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll to explore</span><div class="arrow-anim"></div></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     THEME 1 — OBSIDIAN & EMBER
+════════════════════════════════════════════════════════════ -->
+<section class="theme-section t1-section" id="sec-1">
+
+  <!-- Browser mockup -->
+  <div class="browser-wrap">
+    <div class="browser">
+      <div class="browser-chrome t1-chrome">
+        <div class="b-dot b-r"></div><div class="b-dot b-y"></div><div class="b-dot b-g"></div>
+        <div class="browser-url">amitkaranth.dev</div>
+      </div>
+      <div class="browser-screen t1-screen">
+
+        <!-- Mini nav -->
+        <div class="mini-nav t1-nav">
+          <div class="mini-logo t1-eyebrow" style="font-family:'Syne',sans-serif;opacity:1;font-size:13px;">AK.</div>
+          <div class="mini-links">
+            <span>Projects</span><span>Interests</span><span>Resume</span>
+          </div>
+        </div>
+
+        <!-- Mini hero -->
+        <div class="mini-hero-wrap">
+          <div class="mini-eyebrow t1-eyebrow">ECE Graduate Student &amp; Software Engineer</div>
+          <div class="mini-name t1-name">Amit Karanth<br>Gurpur</div>
+          <div class="mini-tagline t1-tagline">Building systems that bridge signal processing, computer architecture, and machine intelligence.</div>
+          <div class="mini-chips">
+            <span class="mini-chip t1-chip">Python</span>
+            <span class="mini-chip t1-chip">MATLAB</span>
+            <span class="mini-chip t1-chip">C++</span>
+            <span class="mini-chip t1-chip">PyTorch</span>
+            <span class="mini-chip t1-chip">CUDA</span>
+          </div>
+          <div class="mini-btns">
+            <span class="mini-btn t1-btn-primary">View Projects</span>
+            <span class="mini-btn t1-btn-outline">Get in Touch</span>
+          </div>
+        </div>
+
+        <!-- Mini project cards -->
+        <div class="mini-cards-grid">
+          <div class="mini-card t1-card">
+            <div class="mini-card-thumb t1-thumb"></div>
+            <div class="mini-card-body">
+              <div class="mini-card-title t1-card-title">Android GPU Pipeline</div>
+              <div class="mini-card-sub t1-card-sub">Custom rendering pipeline for mobile</div>
+              <div class="mini-card-chips">
+                <span class="mini-card-chip t1-card-chip">C++</span>
+                <span class="mini-card-chip t1-card-chip">Vulkan</span>
+              </div>
+            </div>
+          </div>
+          <div class="mini-card t1-card">
+            <div class="mini-card-thumb t1-thumb"></div>
+            <div class="mini-card-body">
+              <div class="mini-card-title t1-card-title">GPS-IMU Fusion</div>
+              <div class="mini-card-sub t1-card-sub">Kalman filter sensor fusion system</div>
+              <div class="mini-card-chips">
+                <span class="mini-card-chip t1-card-chip">MATLAB</span>
+                <span class="mini-card-chip t1-card-chip">Python</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /screen -->
+    </div><!-- /browser -->
+  </div>
+
+  <!-- Info panel -->
+  <div class="info-panel t1-info">
+    <div class="info-num">Option 01 of 03</div>
+    <div class="info-name" style="font-family:'Syne',sans-serif;font-size:2.6rem;color:#ff7b54;">Obsidian<br>&amp; Ember</div>
+    <div class="info-vibe">Warm, luxurious, unapologetically premium. Like a high-end product launch — dark depths with copper and ember glowing through.</div>
+
+    <div class="swatches-row">
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#0b0b0f;border:1px solid #2e2a42;"></div>
+        <div class="swatch-label" style="color:#9993b4;">Base</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#14121e;border:1px solid #25223a;"></div>
+        <div class="swatch-label" style="color:#9993b4;">Card</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#ff7b54;box-shadow:0 4px 14px rgba(255,123,84,0.4);"></div>
+        <div class="swatch-label" style="color:#9993b4;">Accent</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#c77dff;box-shadow:0 4px 14px rgba(199,125,255,0.3);"></div>
+        <div class="swatch-label" style="color:#9993b4;">Glow</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#f0eef8;"></div>
+        <div class="swatch-label" style="color:#9993b4;">Text</div>
+      </div>
+    </div>
+
+    <div class="font-box t1-font-box">
+      <div class="font-meta" style="color:#555266;">Typography</div>
+      <div class="font-heading t1-font-heading">Syne — Display &amp; Headings</div>
+      <div class="font-body-sample t1-font-body">Inter — Clean body text at all sizes</div>
+    </div>
+
+    <button class="apply-btn t1-apply" onclick="selectTheme('Obsidian & Ember')">
+      Apply This Theme
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     THEME 2 — CLOUD & COBALT
+════════════════════════════════════════════════════════════ -->
+<section class="theme-section t2-section" id="sec-2">
+
+  <!-- Browser mockup -->
+  <div class="browser-wrap">
+    <div class="browser" style="box-shadow:0 40px 100px rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);">
+      <div class="browser-chrome t2-chrome">
+        <div class="b-dot b-r"></div><div class="b-dot b-y"></div><div class="b-dot b-g"></div>
+        <div class="browser-url t2-url-bar">amitkaranth.dev</div>
+      </div>
+      <div class="browser-screen t2-screen">
+
+        <!-- Mini nav -->
+        <div class="mini-nav t2-nav">
+          <div class="mini-logo" style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:#111827;">AK.</div>
+          <div class="mini-links" style="color:#6b7280;">
+            <span>Projects</span><span>Interests</span><span>Resume</span>
+          </div>
+        </div>
+
+        <!-- Mini hero -->
+        <div class="mini-hero-wrap">
+          <div class="mini-eyebrow t2-eyebrow">ECE Graduate Student &amp; Software Engineer</div>
+          <div class="mini-name t2-name">Amit Karanth<br>Gurpur</div>
+          <div class="mini-tagline t2-tagline">Building systems that bridge signal processing, computer architecture, and machine intelligence.</div>
+          <div class="mini-chips">
+            <span class="mini-chip t2-chip">Python</span>
+            <span class="mini-chip t2-chip">MATLAB</span>
+            <span class="mini-chip t2-chip">C++</span>
+            <span class="mini-chip t2-chip">PyTorch</span>
+            <span class="mini-chip t2-chip">CUDA</span>
+          </div>
+          <div class="mini-btns">
+            <span class="mini-btn t2-btn-primary">View Projects</span>
+            <span class="mini-btn t2-btn-outline">Get in Touch</span>
+          </div>
+        </div>
+
+        <!-- Mini project cards -->
+        <div class="mini-cards-grid">
+          <div class="mini-card t2-card">
+            <div class="mini-card-thumb t2-thumb"></div>
+            <div class="mini-card-body">
+              <div class="mini-card-title t2-card-title">Android GPU Pipeline</div>
+              <div class="mini-card-sub t2-card-sub">Custom rendering pipeline for mobile</div>
+              <div class="mini-card-chips">
+                <span class="mini-card-chip t2-card-chip">C++</span>
+                <span class="mini-card-chip t2-card-chip">Vulkan</span>
+              </div>
+            </div>
+          </div>
+          <div class="mini-card t2-card">
+            <div class="mini-card-thumb t2-thumb"></div>
+            <div class="mini-card-body">
+              <div class="mini-card-title t2-card-title">GPS-IMU Fusion</div>
+              <div class="mini-card-sub t2-card-sub">Kalman filter sensor fusion system</div>
+              <div class="mini-card-chips">
+                <span class="mini-card-chip t2-card-chip">MATLAB</span>
+                <span class="mini-card-chip t2-card-chip">Python</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Info panel -->
+  <div class="info-panel t2-info">
+    <div class="info-num">Option 02 of 03</div>
+    <div class="info-name" style="font-family:'Space Grotesk',sans-serif;font-size:2.6rem;color:#2563eb;">Cloud<br>&amp; Cobalt</div>
+    <div class="info-vibe">Sharp, clean, and quietly authoritative. The Vercel / Linear aesthetic — every pixel earns its place. Confidence through restraint.</div>
+
+    <div class="swatches-row">
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#f9fafb;border:1px solid #e5e7eb;"></div>
+        <div class="swatch-label" style="color:#9ca3af;">Base</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#ffffff;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,0.07);"></div>
+        <div class="swatch-label" style="color:#9ca3af;">Card</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#2563eb;box-shadow:0 4px 14px rgba(37,99,235,0.35);"></div>
+        <div class="swatch-label" style="color:#9ca3af;">Accent</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#7c3aed;"></div>
+        <div class="swatch-label" style="color:#9ca3af;">Violet</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#111827;"></div>
+        <div class="swatch-label" style="color:#9ca3af;">Text</div>
+      </div>
+    </div>
+
+    <div class="font-box t2-font-box">
+      <div class="font-meta" style="color:#9ca3af;">Typography</div>
+      <div class="font-heading t2-font-heading">Space Grotesk — All text</div>
+      <div class="font-body-sample t2-font-body">Geometric, modern — distinctive without being loud</div>
+    </div>
+
+    <button class="apply-btn t2-apply" onclick="selectTheme('Cloud & Cobalt')">
+      Apply This Theme
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     THEME 3 — MIDNIGHT & JADE
+════════════════════════════════════════════════════════════ -->
+<section class="theme-section t3-section" id="sec-3">
+
+  <!-- Browser mockup -->
+  <div class="browser-wrap">
+    <div class="browser">
+      <div class="browser-chrome t3-chrome">
+        <div class="b-dot b-r"></div><div class="b-dot b-y"></div><div class="b-dot b-g"></div>
+        <div class="browser-url">amitkaranth.dev</div>
+      </div>
+      <div class="browser-screen t3-screen">
+
+        <!-- Mini nav -->
+        <div class="mini-nav t3-nav">
+          <div class="mini-logo t3-eyebrow" style="font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;opacity:1;">AK.</div>
+          <div class="mini-links" style="color:#3d6b52;">
+            <span>Projects</span><span>Interests</span><span>Resume</span>
+          </div>
+        </div>
+
+        <!-- Mini hero -->
+        <div class="mini-hero-wrap">
+          <div class="mini-eyebrow t3-eyebrow" style="text-shadow:0 0 12px rgba(57,255,144,0.5);">ECE Graduate Student &amp; Software Engineer</div>
+          <div class="mini-name t3-name">Amit Karanth<br>Gurpur</div>
+          <div class="mini-tagline t3-tagline">Building systems that bridge signal processing, computer architecture, and machine intelligence.</div>
+          <div class="mini-chips">
+            <span class="mini-chip t3-chip">Python</span>
+            <span class="mini-chip t3-chip">MATLAB</span>
+            <span class="mini-chip t3-chip">C++</span>
+            <span class="mini-chip t3-chip">PyTorch</span>
+            <span class="mini-chip t3-chip">CUDA</span>
+          </div>
+          <div class="mini-btns">
+            <span class="mini-btn t3-btn-primary">View Projects</span>
+            <span class="mini-btn t3-btn-outline">Get in Touch</span>
+          </div>
+        </div>
+
+        <!-- Mini project cards -->
+        <div class="mini-cards-grid">
+          <div class="mini-card t3-card">
+            <div class="mini-card-thumb t3-thumb"></div>
+            <div class="mini-card-body">
+              <div class="mini-card-title t3-card-title">Android GPU Pipeline</div>
+              <div class="mini-card-sub t3-card-sub">Custom rendering pipeline for mobile</div>
+              <div class="mini-card-chips">
+                <span class="mini-card-chip t3-card-chip">C++</span>
+                <span class="mini-card-chip t3-card-chip">Vulkan</span>
+              </div>
+            </div>
+          </div>
+          <div class="mini-card t3-card">
+            <div class="mini-card-thumb t3-thumb"></div>
+            <div class="mini-card-body">
+              <div class="mini-card-title t3-card-title">GPS-IMU Fusion</div>
+              <div class="mini-card-sub t3-card-sub">Kalman filter sensor fusion system</div>
+              <div class="mini-card-chips">
+                <span class="mini-card-chip t3-card-chip">MATLAB</span>
+                <span class="mini-card-chip t3-card-chip">Python</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Info panel -->
+  <div class="info-panel t3-info">
+    <div class="info-num">Option 03 of 03</div>
+    <div class="info-name" style="font-family:'Outfit',sans-serif;font-size:2.6rem;color:#39ff90;text-shadow:0 0 30px rgba(57,255,144,0.35);">Midnight<br>&amp; Jade</div>
+    <div class="info-vibe">Immersive, atmospheric, and bold. A dark forest at night illuminated by neon — technically rich with an organic, alive quality.</div>
+
+    <div class="swatches-row">
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#040d09;border:1px solid #163321;"></div>
+        <div class="swatch-label" style="color:#3d6b52;">Base</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#0a1a10;border:1px solid #163321;"></div>
+        <div class="swatch-label" style="color:#3d6b52;">Card</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#39ff90;box-shadow:0 0 16px rgba(57,255,144,0.5);"></div>
+        <div class="swatch-label" style="color:#3d6b52;">Neon</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#a8e8c0;"></div>
+        <div class="swatch-label" style="color:#3d6b52;">Soft</div>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-circle" style="background:#e8fff2;"></div>
+        <div class="swatch-label" style="color:#3d6b52;">Text</div>
+      </div>
+    </div>
+
+    <div class="font-box t3-font-box">
+      <div class="font-meta" style="color:#2d5040;">Typography</div>
+      <div class="font-heading t3-font-heading">Outfit — All text</div>
+      <div class="font-body-sample t3-font-body">Rounded, modern — warm and approachable</div>
+    </div>
+
+    <button class="apply-btn t3-apply" onclick="selectTheme('Midnight & Jade')">
+      Apply This Theme
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+</section>
+
+
+<script>
+  const sections = ['sec-0','sec-1','sec-2','sec-3'];
+  const dots = document.querySelectorAll('.side-dot');
+
+  function scrollTo(idx) {
+    document.getElementById(sections[idx]).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Intersection observer to update nav dots
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = sections.indexOf(e.target.id);
+        if (idx >= 0) {
+          dots.forEach(d => d.classList.remove('active'));
+          dots[idx].classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.55 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Theme selection
+  function selectTheme(name) {
+    const msg = `Apply the "${name}" theme to my portfolio.`;
+    navigator.clipboard.writeText(msg).catch(() => {});
+    showToast(`"${name}" selected — paste this message to Claude to apply it`);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+</script>
+
+</body>
+</html>

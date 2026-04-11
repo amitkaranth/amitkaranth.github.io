@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — Amit Karanth Gurpur</title>
+  <meta name="description" content="Resume of Amit Karanth Gurpur.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <style>
+    .resume-layout {
+      padding-top:    var(--nav-height);
+      padding-bottom: 0;
+      display:        flex;
+      flex-direction: column;
+      height:         100vh;
+      width:          100%;
+    }
+
+    .resume-toolbar {
+      display:          flex;
+      align-items:      center;
+      justify-content:  space-between;
+      flex-wrap:        wrap;
+      gap:              var(--space-3);
+      padding:          var(--space-3) var(--space-6);
+      border-bottom:    1px solid var(--color-border);
+      background-color: var(--color-bg-secondary);
+      flex-shrink:      0;
+    }
+
+    .resume-toolbar__title {
+      font-size:      var(--text-sm);
+      font-weight:    600;
+      color:          var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .resume-toolbar .btn {
+      border-radius: var(--radius-sm);
+    }
+
+    .resume-embed {
+      flex:   1;
+      width:  100%;
+      border: none;
+    }
+
+    /* Fallback message when PDF can't be embedded */
+    .resume-fallback {
+      display:        none;
+      text-align:     center;
+      padding:        var(--space-20);
+      flex-direction: column;
+      align-items:    center;
+      gap:            var(--space-4);
+    }
+
+    .resume-embed-wrap {
+      flex:       1;
+      display:    flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow:   hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader" aria-hidden="true"><canvas id="loader-canvas"></canvas></div>
+  <script src="assets/js/loader.js"></script>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" id="nav-logo">YN</a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html"     class="nav__link">Home</a></li>
+        <li><a href="projects.html"  class="nav__link">Projects</a></li>
+        <li><a href="interests.html" class="nav__link">Interests</a></li>
+        <li><a href="resume.html"    class="nav__link">Resume</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon"></span>
+        </button>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html"     class="nav__link">Home</a>
+    <a href="projects.html"  class="nav__link">Projects</a>
+    <a href="interests.html" class="nav__link">Interests</a>
+    <a href="resume.html"    class="nav__link">Resume</a>
+  </div>
+
+  <!-- ── Resume layout ───────────────────────────────────── -->
+  <div class="resume-layout">
+
+    <!-- Toolbar with download button -->
+    <div class="resume-toolbar">
+      <span class="resume-toolbar__title">Resume</span>
+      <div style="display:flex;gap:var(--space-3)">
+        <a id="resume-download-btn" href="#" download class="btn btn--primary btn--sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </a>
+        <a id="resume-open-btn" href="#" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">
+          Open in new tab
+        </a>
+      </div>
+    </div>
+
+    <!-- PDF embed -->
+    <div class="resume-embed-wrap">
+      <iframe
+        id="resume-embed"
+        class="resume-embed"
+        title="Resume"
+        aria-label="Resume PDF viewer">
+      </iframe>
+
+      <!-- Shown if iframe fails (e.g. mobile browsers) -->
+      <div class="resume-fallback" id="resume-fallback">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+             fill="none" stroke="var(--color-text-muted)" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <p style="color:var(--color-text-secondary)">
+          Your browser can't display this PDF inline.
+        </p>
+        <a id="resume-fallback-btn" href="#" class="btn btn--primary">Download Resume</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="assets/data/content.js"></script>
+  <script src="assets/data/projects.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const url = CONTENT.resumeUrl;
+
+      // Build a direct-download URL for Google Drive links.
+      // /file/d/FILE_ID/... → /uc?export=download&id=FILE_ID
+      // This makes the browser receive a Content-Disposition: attachment header
+      // so clicking "Download PDF" saves the file instead of opening Drive.
+      let downloadUrl = url;
+      if (url.includes("drive.google.com")) {
+        const match = url.match(/\/d\/([^/]+)/);
+        if (match) downloadUrl = `https://drive.google.com/uc?export=download&id=${match[1]}`;
+      }
+
+      const embedUrl = url.includes("drive.google.com") ? url + "&rm=minimal" : url;
+      document.getElementById("resume-embed").src           = embedUrl;
+      document.getElementById("resume-download-btn").href   = downloadUrl;
+      document.getElementById("resume-open-btn").href       = url;
+      document.getElementById("resume-fallback-btn").href   = downloadUrl;
+
+      // If it's an external link (not a local PDF), open directly
+      if (url.startsWith("http") && !url.includes(window.location.hostname)) {
+        window.location.href = url;
+      }
+
+      // Show fallback if iframe fails to load
+      const iframe = document.getElementById("resume-embed");
+      iframe.addEventListener("error", () => {
+        iframe.style.display = "none";
+        document.getElementById("resume-fallback").style.display = "flex";
+      });
+
+      // Nav logo initials
+      const logo = document.getElementById("nav-logo");
+      if (logo) logo.textContent = CONTENT.name.split(" ").slice(0, 2).map(w => w[0]).join("") + ".";
+    });
+  </script>
+
+</body>
+</html>
