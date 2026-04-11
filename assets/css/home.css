@@ -246,7 +246,7 @@
   }
 
   .hero__eyebrow        { text-align: center; }
-  .hero__tagline        { max-width: 100%; text-align: left; }
+  .hero__tagline        { max-width: 100%; text-align: center; }
   .hero__tagline::after { display: none; }
   .hero__social         { justify-content: center; }
   .hero__cta            { justify-content: center; }
