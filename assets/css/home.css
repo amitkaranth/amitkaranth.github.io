@@ -245,12 +245,14 @@
     height: 200px;
   }
 
+  .hero__eyebrow        { text-align: center; }
   .hero__tagline        { max-width: 100%; text-align: left; }
   .hero__tagline::after { display: none; }
   .hero__social         { justify-content: center; }
   .hero__cta            { justify-content: center; }
   .hero__visual         { width: 100%; }
   .hero                 { min-height: auto; padding-top: calc(var(--nav-height) + var(--space-8)); }
+  .qr-block             { display: none; }
 }
 
 /* ── Light mode: replace jade glows with dark blue ───────── */

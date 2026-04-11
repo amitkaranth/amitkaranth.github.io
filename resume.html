@@ -180,11 +180,6 @@
       document.getElementById("resume-open-btn").href       = url;
       document.getElementById("resume-fallback-btn").href   = downloadUrl;
 
-      // If it's an external link (not a local PDF), open directly
-      if (url.startsWith("http") && !url.includes(window.location.hostname)) {
-        window.location.href = url;
-      }
-
       // Show fallback if iframe fails to load
       const iframe = document.getElementById("resume-embed");
       iframe.addEventListener("error", () => {
