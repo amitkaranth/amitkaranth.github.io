@@ -140,9 +140,9 @@
 }
 
 @media (max-width: 768px) {
-  .nav__links,
-  .nav__actions { display: none; }
+  .nav__links    { display: none; }
   .nav__hamburger { display: flex; }
+  .theme-toggle  { width: 34px; height: 34px; }
 }
 
 /* ── Footer ──────────────────────────────────────────────── */

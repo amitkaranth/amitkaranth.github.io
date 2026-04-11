@@ -245,11 +245,12 @@
     height: 200px;
   }
 
-  .hero__tagline     { max-width: 100%; }
-  .hero__social      { justify-content: center; }
-  .hero__cta         { justify-content: center; }
-  .hero__visual      { width: 100%; }
-  .hero              { min-height: auto; padding-top: calc(var(--nav-height) + var(--space-8)); }
+  .hero__tagline        { max-width: 100%; text-align: left; }
+  .hero__tagline::after { display: none; }
+  .hero__social         { justify-content: center; }
+  .hero__cta            { justify-content: center; }
+  .hero__visual         { width: 100%; }
+  .hero                 { min-height: auto; padding-top: calc(var(--nav-height) + var(--space-8)); }
 }
 
 /* ── Light mode: replace jade glows with dark blue ───────── */

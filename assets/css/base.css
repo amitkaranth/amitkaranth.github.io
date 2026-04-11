@@ -373,4 +373,5 @@ ul, ol { list-style: none; }
 @media (max-width: 768px) {
   .section-heading { font-size: var(--text-2xl); }
   .section         { padding: var(--space-16) 0; }
+  p                { text-align: left; }
 }
