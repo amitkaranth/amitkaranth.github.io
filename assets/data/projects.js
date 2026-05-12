@@ -136,7 +136,7 @@ const PROJECTS = [
     image:    "assets/images/projects/iikshana.png",
     tags:       ["Python", "Airflow", "Docker", "MLOps", "Signal Processing", "CI/CD"],
     categories: ["Python", "ML & AI", "Image & Signal Processing"],
-    links:    { github: "https://github.com/amitkaranth/Iikshana", live: null },
+    links:    { github: "https://github.com/amitkaranth/iikshana-courtroom-accessibility", live: null },
     featured: true,
     nda:      false,
   },
